@@ -3,12 +3,14 @@ function Render() {
   this.tileContainer = document.querySelector('.tile-container');
   this.scoreContainer = document.querySelector('.now .value');
   this.statusContainer = document.querySelector('.status');
+  this.bestScoreContainer = document.querySelector('.best .value');
 }
 
 // 渲染整个grid
-Render.prototype.render = function(grid, { score, status }) {
+Render.prototype.render = function(grid, { score, status,bestScore}) {
   this.empty();
   this.renderScore(score);
+  this.renderBestScore(bestScore);
   this.renderStatus(status);
   for (let row = 0; row < grid.size; row++) {
     for (let column = 0; column < grid.size; column++) {
@@ -37,6 +39,10 @@ Render.prototype.renderStatus = function(status) {
 // 清空tileContainer
 Render.prototype.empty = function() {
   this.tileContainer.innerHTML = '';
+};
+
+Render.prototype.renderBestScore = function(bestScore) {
+  this.bestScoreContainer.innerHTML = bestScore;
 };
 
 // 渲染单个tile

@@ -5,6 +5,13 @@ const CellStateKey = '2048CellState';
 
 function Storage() {}
 
+Storage.prototype.setBestScore = function(bestScore) {
+  window.localStorage.setItem(BestScoreKey, bestScore);
+};
+
+Storage.prototype.getBestScore = function() {
+  return window.localStorage.getItem(BestScoreKey);
+};
 // 存储方格状态和分数
 Storage.prototype.setCellState = function({ score, grid }) {
   window.localStorage.setItem(

@@ -17,6 +17,11 @@ function Manager(size = 4, aim = 2048) {
 
 Manager.prototype.defaultStart = function() {
   const state = this.storage.getCellState();
+  let bestScore = this.storage.getBestScore();
+  if (!bestScore) {
+    bestScore = 0;
+  }
+  this.bestScore = bestScore;
   // 如果存在缓存则恢复
   if (state) {
     this.score = state.score;
@@ -42,7 +47,15 @@ Manager.prototype.start = function() {
 Manager.prototype._render = function() {
   // 渲染之前调用存储
   this.storage.setCellState({ score: this.score, grid: this.grid });
-  this.render.render(this.grid, { score: this.score, status: this.status });
+  if (this.score > this.bestScore) {
+    this.bestScore = this.score;
+    this.storage.setBestScore(this.bestScore);
+  }
+  this.render.render(this.grid, {
+    score: this.score,
+    status: this.status,
+    bestScore: this.bestScore
+  });
 };
 
 // 随机添加一个节点
